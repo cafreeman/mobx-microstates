@@ -8,6 +8,8 @@ export class Boolean {
   }
 
   set(value: boolean) {
-    this.value = value;
+    if (typeof value === "boolean") {
+      this.value = value;
+    }
   }
 }
