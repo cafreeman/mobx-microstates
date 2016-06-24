@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
-        "target": "es6",
-        "module": "es6",
+        "target": "es5",
+        "module": "commonjs",
         "moduleResolution": "node",
         "isolatedModules": false,
         "jsx": "react",
@@ -14,28 +14,14 @@
         "noLib": false,
         "preserveConstEnums": true,
         "suppressImplicitAnyIndexErrors": true,
-        "outDir": "./build"
+        "outDir": "build"
     },
     "compileOnSave": true,
     "buildOnSave": false,
     "atom": {
         "rewriteTsconfig": true
     },
-    "filesGlob": [
-        "src/**/*.ts",
-        "typings/**/*.d.ts",
-        "typings/index.d.ts",
-        "!node_modules/**"
-    ],
-    "files": [
-        "src/main.ts",
-        "src/states/Boolean.ts",
-        "src/states/Choice.ts",
-        "src/states/List.ts",
-        "src/states/Number.ts",
-        "src/states/String.ts",
-        "typings/globals/mocha/index.d.ts",
-        "typings/index.d.ts",
-        "typings/modules/chai/index.d.ts"
+    "exclude": [
+      "node_modules"
     ]
 }
