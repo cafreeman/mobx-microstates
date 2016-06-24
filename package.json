@@ -3,12 +3,6 @@
   "version": "0.0.1",
   "description": "",
   "main": "dist/index.js",
-  "scripts": {
-    "test": "mocha",
-    "clean": "rm -rf ./{build,dist}",
-    "build": "npm run clean; tsc; rollup -c",
-    "pretest": "tsc test/*.ts --module commonjs"
-  },
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -22,7 +16,6 @@
     "gulp-typescript": "^2.13.6",
     "run-sequence": "^1.2.1",
     "typings": "^1.3.0",
-    "uglify-js": "^2.6.4"
   },
   "install": "typings install"
 }
