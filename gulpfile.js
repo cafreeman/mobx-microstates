@@ -8,6 +8,7 @@ const uglify = require('gulp-uglify');
 const pump = require('pump');
 const rollup = require('rollup').rollup;
 const rename = require('gulp-rename');
+const plumber = require('gulp-plumber');
 
 const tsDev = ts.createProject('tsconfig.json');
 
@@ -24,21 +25,24 @@ gulp.task('default', ['build'], function() {
 
 // Dev tasks
 gulp.task('build', function(callback) {
-  return run('tsDev', 'test', callback);
+  run('tsDev', 'test', callback);
 })
 
 gulp.task('tsDev', ['clean-build'], function () {
   return tsDev.src()
+    .pipe(plumber())
     .pipe(ts(tsDev))
     .pipe(gulp.dest('build'));
 });
 
 gulp.task('test', function () {
   return gulp.src('build/**/*.spec.js')
-  .pipe(mocha({
-    // reporter: 'nyan'
-    reporter: 'spec'
-  }));
+    .pipe(plumber())
+    .pipe(mocha({
+        reporter: 'nyan'
+        // reporter: 'spec'
+      })
+    );
 });
 
 // Clean tasks
@@ -59,12 +63,14 @@ gulp.task('package', function() {
 
 gulp.task('tsProd', ['clean-build'], function() {
   return tsProd.src()
+    .pipe(plumber())
     .pipe(ts(tsProd))
     .pipe(gulp.dest('build'));
 });
 
 gulp.task('babel', function() {
   return gulp.src('dist/mobx-microstates.js')
+    .pipe(plumber())
     .pipe(
       babel({
         presets: ['es2015'],
