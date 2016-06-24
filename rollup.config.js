@@ -1,7 +1,5 @@
 import nodeResolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
-import { minify } from 'uglify-js';
-import uglify from 'rollup-plugin-uglify';
 import filesize from 'rollup-plugin-filesize';
 
 export default {
@@ -17,7 +15,6 @@ export default {
     commonjs({
       include: 'node_modules/**'
     }),
-    // uglify({}, minify),
     filesize()
   ]
 };
