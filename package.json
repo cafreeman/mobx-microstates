@@ -1,5 +1,5 @@
 {
-  "name": "ts-microstates",
+  "name": "mobx-microstates",
   "version": "0.0.1",
   "description": "",
   "main": "dist/index.js",
