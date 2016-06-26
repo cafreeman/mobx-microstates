@@ -18,8 +18,8 @@ export class Option<T> {
     this.isSelected = isSelected;
   }
 
-  @action toggle() {
-    this.isSelected = !this.isSelected;
+  @action toggle(status = !this.isSelected) {
+    this.isSelected = status;
   }
 }
 
@@ -29,8 +29,10 @@ export class SingleChoice<T> extends Choice<Option<T>> {
     super(values);
   }
 
-  @action toggle(option) {
-    this.options[option].toggle();
+  @action toggle(option: Option<T>, isSelected: boolean = !option.isSelected) {
+    this.options.forEach(o => {
+      o.toggle(o === option && isSelected);
+    });
   }
 
   get selection(): T {
@@ -53,6 +55,10 @@ export class MultipleChoice<T> extends Choice<Option<T>> {
   }
 
   @action toggle(option) {
-    this.options[option].toggle();
+    this.options.forEach(o => {
+      if (o === option) {
+        o.toggle();
+      }
+    });
   }
 }
