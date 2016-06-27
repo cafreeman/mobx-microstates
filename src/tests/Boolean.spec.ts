@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { Boolean } from '../lib/main';
+import { Boolean } from '../lib/mobx-microstates';
 
 describe('Boolean', () => {
   let dummy: Boolean;

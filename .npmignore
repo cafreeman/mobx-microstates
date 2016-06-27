@@ -1,0 +1,7 @@
+.vscode
+build
+src
+typings
+gulpfile.js
+tsconfig.json
+typings.json

@@ -9,6 +9,7 @@ const pump = require('pump');
 const rollup = require('rollup').rollup;
 const rename = require('gulp-rename');
 const plumber = require('gulp-plumber');
+const merge = require('merge2');
 
 const tsDev = ts.createProject('tsconfig.json');
 
@@ -54,19 +55,39 @@ gulp.task('clean-build', function () {
 
 gulp.task('clean-dist', function() {
   return del('dist/**/**');
-})
+});
 
 // Production tasks
 gulp.task('package', function() {
   return run('tsProd', 'rollup', 'babel', 'compress');
-})
+});
 
 gulp.task('tsProd', ['clean-build'], function() {
-  return tsProd.src()
+  let tsBuild = tsProd.src()
     .pipe(plumber())
-    .pipe(ts(tsProd))
-    .pipe(gulp.dest('build'));
+    .pipe(ts(tsProd));
+
+  return merge([
+    tsBuild.dts.pipe(gulp.dest('build/definitions')),
+    tsBuild.js.pipe(gulp.dest('build'))
+  ]);
 });
+
+gulp.task('rollup', function() {
+  return rollup({
+    entry: 'build/lib/mobx-microstates.js',
+  }).then(function(bundle) {
+    return bundle.write({
+      format: 'cjs',
+      dest: 'dist/mobx-microstates.js'
+    });
+  });
+});
+
+// gulp.task('move-declarations', function() {
+//   return gulp.src('build/definitions/lib/**/*.d.ts')
+//     .pipe(gulp.dest('dist/definitions'));
+// })
 
 gulp.task('babel', function() {
   return gulp.src('dist/mobx-microstates.js')
@@ -77,17 +98,6 @@ gulp.task('babel', function() {
       })
     )
     .pipe(gulp.dest('dist'))
-})
-
-gulp.task('rollup', function() {
-  return rollup({
-    entry: 'build/lib/main.js',
-  }).then(function(bundle) {
-    return bundle.write({
-      format: 'cjs',
-      dest: 'dist/mobx-microstates.js'
-    });
-  });
 });
 
 gulp.task('compress', function(callback) {
@@ -95,7 +105,6 @@ gulp.task('compress', function(callback) {
     [
       gulp.src('dist/mobx-microstates.js'),
       uglify(),
-      // minifier({}, uglify),
       rename({
         basename: 'mobx-microstates.min',
         extName: ".js",

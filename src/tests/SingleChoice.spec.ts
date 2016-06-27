@@ -1,4 +1,4 @@
-import { SingleChoice } from '../lib/main';
+import { SingleChoice } from '../lib/mobx-microstates';
 import { assert } from 'chai';
 
 describe('SingleChoice<string>', () => {

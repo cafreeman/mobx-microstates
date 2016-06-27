@@ -2,9 +2,10 @@
   "name": "mobx-microstates",
   "version": "0.0.1",
   "description": "",
-  "main": "dist/index.js",
-  "author": "",
-  "license": "ISC",
+  "main": "dist/mobx-microstates.js",
+  "typings": "dist/definitions/mobx-microstates.d.ts",
+  "author": "Chris Freeman",
+  "license": "MIT",
   "dependencies": {
     "mobx": "^2.3.2"
   },
@@ -19,6 +20,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-typescript": "^2.13.6",
     "gulp-uglify": "^1.5.4",
+    "merge2": "^1.0.2",
     "pump": "^1.0.1",
     "rollup": "^0.33.0",
     "run-sequence": "^1.2.1",

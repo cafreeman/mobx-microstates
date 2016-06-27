@@ -1,4 +1,4 @@
-import { List }  from '../lib/main';
+import { List, Boolean }  from '../lib/mobx-microstates';
 import { assert } from 'chai';
 
 describe('List of strings', () => {
@@ -103,5 +103,22 @@ describe('List of strings', () => {
       let unshifted = dummy.unshift('first');
       assert.deepEqual(unshifted, dummy.value.length, 'unshift did not return the correct length');
     })
+  });
+});
+
+describe('List of Boolean microstates', () => {
+  let dummy: List<Boolean>;
+
+  let states = [0, 1, 2].map(v => new Boolean());
+
+  beforeEach(() => {
+    dummy = new List(states);
+  });
+
+  describe('constructor', () => {
+    it('should do stuff', () => {
+      assert.instanceOf(dummy, List);
+      assert.instanceOf(dummy.value[0], Boolean);
+    });
   });
 });
