@@ -8,11 +8,11 @@ export class List<T> {
     this.value = observable(value);
   }
 
-  @action add(item): void {
+  @action add(item: T): void {
     this.value.push(item);
   }
 
-  @action remove(item): boolean {
+  @action remove(item: T): boolean {
     return this.value.remove(item);
   }
 
