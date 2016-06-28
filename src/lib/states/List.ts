@@ -8,6 +8,10 @@ export class List<T> {
     this.values = observable(values);
   }
 
+  get length() {
+    return this.values.length;
+  }
+
   @action add(item: T): void {
     this.values.push(item);
   }
