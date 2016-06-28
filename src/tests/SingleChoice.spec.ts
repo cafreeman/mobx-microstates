@@ -56,6 +56,28 @@ describe('SingleChoice<string>', () => {
     });
   });
 
+  describe('toggle on Option', () => {
+    it('should toggle the option itself', () => {
+      assert.isNull(dummy.selection);
+      dummy.options[0].toggle();
+      assert.isTrue(dummy.options[0].isSelected);
+      assert.isNotNull(dummy.selection);
+      assert.equal(dummy.selection, 'abc');
+    });
+
+    it('should only allow one option to be selected at a time', () => {
+      dummy.options[0].toggle();
+      assert.deepEqual(dummy.selection, 'abc');
+      assert.isTrue(dummy.options[0].isSelected);
+
+      dummy.options[1].toggle();
+      assert.isTrue(dummy.options[1].isSelected);
+      console.log(dummy.selection);
+      assert.deepEqual(dummy.selection, '123', 'the SingleChoice selection was not updated correctly');
+      assert.isFalse(dummy.options[0].isSelected);
+    })
+  });
+
   describe('SingleChoice.selection', () => {
     it('should return null if no item is selected', () => {
       let selection = dummy.selection;
